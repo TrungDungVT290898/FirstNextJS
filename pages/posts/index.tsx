@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next'
+import Link from 'next/link'
 import React from 'react'
 import { NoSubstitutionTemplateLiteral } from 'typescript'
 
@@ -21,7 +22,9 @@ const PostListPage = ({ posts }: PostListPageProps) => {
             <ul>
                 {posts.map(post => (
                     <li key={`post-${post.id}`}>
-                        {post.title}
+                        <Link href={`/posts/${post.id}`} >
+                            {post.title}
+                        </Link>
                     </li>
                 ))}
             </ul>
