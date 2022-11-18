@@ -1,0 +1,42 @@
+import { GetStaticProps, GetStaticPropsContext } from 'next'
+import React from 'react'
+import { NoSubstitutionTemplateLiteral } from 'typescript'
+
+export interface PostListPageProps {
+    posts: IPost[]
+}
+export interface IPost {
+    id: string,
+    title: string,
+    author: string,
+    description: string,
+    createdAt?: number,
+    updatedAt?: number,
+    imageUrl?: string
+}
+const PostListPage = ({ posts }: PostListPageProps) => {
+    return (
+        <React.Fragment>
+            <h1>Post List Page</h1>
+            <ul>
+                {posts.map(post => (
+                    <li key={`post-${post.id}`}>
+                        {post.title}
+                    </li>
+                ))}
+            </ul>
+        </React.Fragment>
+    )
+}
+
+export default PostListPage
+export const getStaticProps: GetStaticProps<PostListPageProps> = async (context: GetStaticPropsContext) => {
+
+    const response = await fetch("https://js-post-api.herokuapp.com/api/posts?_page=1");
+    const data = await response.json();
+    return {
+        props: {
+            posts: data.data as IPost[]
+        }
+    }
+}
