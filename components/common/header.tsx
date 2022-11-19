@@ -2,10 +2,9 @@ import React from 'react'
 
 type Props = {}
 
-const header = (props: Props) => {
+export default function HeaderComponent({ }: Props) {
+    console.log("render header...");
     return (
-        <div>header</div>
+        <div>Header</div>
     )
 }
-
-export default header
