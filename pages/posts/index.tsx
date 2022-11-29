@@ -35,7 +35,7 @@ const PostListPage = ({ posts }: PostListPageProps) => {
 export default PostListPage
 export const getStaticProps: GetStaticProps<PostListPageProps> = async (context: GetStaticPropsContext) => {
 
-    const response = await fetch("https://js-post-api.herokuapp.com/api/posts?_page=1");
+    const response = await fetch('https://js-post-api.herokuapp.com/api/posts?_page=1');
     const data = await response.json();
     return {
         props: {

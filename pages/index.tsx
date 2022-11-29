@@ -7,14 +7,14 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const router = useRouter();
   const handleClickAbout = () => {
-    router.push("/about");
+    router.push('/about');
   }
   const handleClickDetail = () => {
     router.push({
-      pathname: "/details/[detailId]",
+      pathname: '/details/[detailId]',
       query: {
-        detailId: "1",
-        ref: "social"
+        detailId: '1',
+        ref: 'social'
       }
     });
   }
@@ -27,10 +27,10 @@ export default function Home() {
 
 
           <Link href="/hello">
-            <button>GO TO HELLO</button>
+            <button className='bg-sky-500/100 rounded-lg px-2'>GO TO HELLO</button>
           </Link>
-          <button onClick={() => handleClickAbout()}>Go to About</button>
-          <button onClick={() => handleClickDetail()}>Go to Detail </button>
+          <button className='bg-cyan-500 hover:bg-cyan-600 rounded-lg px-2' onClick={() => handleClickAbout()}>Go to About</button>
+          <button className='bg-sky-500/50 rounded-lg px-2' onClick={() => handleClickDetail()}>Go to Detail </button>
 
         </div>
       </main>

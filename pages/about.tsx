@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ButtonHTMLAttributes, useEffect, useState } from 'react'
 import { IPost } from './posts';
-type Props = {}
+
 // const Header = dynamic(() => import("@/components/common/header"), {
 //   ssr: false
 // })
-function About({ }: Props) {
+function About() {
   const router = useRouter();
   const [posts, setPosts] = useState<IPost[]>();
   const page = router.query?.page;
@@ -22,7 +22,7 @@ function About({ }: Props) {
   }, [page])
   const handleChangePageClick = () => {
     router.push({
-      pathname: "/about",
+      pathname: '/about',
       query: {
         page: (Number(page) || 1) + 1
       }
@@ -30,9 +30,9 @@ function About({ }: Props) {
   }
   return (
     <React.Fragment>
-      <h1>About page</h1>
+      <h1 className='bg-gray-500'>About page</h1>
       <HeaderComponent />
-      <ul className='post-list'>
+      <ul className='list-decimal list-inside'>
         {
           !posts ? (<>Not Found</>) : (
             posts.map(post => (<li key={`li-key-${post.id}`}>{post.title}</li>))
@@ -41,7 +41,7 @@ function About({ }: Props) {
         }
       </ul>
       <div>
-        <button name='previous' onClick={handleChangePageClick}>Next Page</button>
+        <button name='previous' className='bg-yellow-50' onClick={handleChangePageClick}>Next Page</button>
       </div>
 
     </React.Fragment>
@@ -51,7 +51,7 @@ function About({ }: Props) {
 
 export default About
 export async function getStaticProps() {
-  console.log("get static props");
+  console.log('get static props');
   return {
     props: {
 

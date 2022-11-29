@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 
-type Props = {}
 
-function DetailPage({ }: Props) {
+
+function DetailPage() {
     const router = useRouter();
     return (
         <div>

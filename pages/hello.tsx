@@ -1,8 +1,8 @@
 import React from 'react'
 
-type Props = {}
 
-const helloworld = (props: Props) => {
+
+const helloworld = () => {
     return (
         <div>
             This is Hello World Page
