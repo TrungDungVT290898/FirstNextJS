@@ -1,23 +1,23 @@
 import HeaderComponent from '@/components/common/header';
-import dynamic from 'next/dynamic';
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { ButtonHTMLAttributes, useEffect, useState } from 'react'
-import { IPost } from './posts';
+import { AdminLayout } from 'layout';
 
-// const Header = dynamic(() => import("@/components/common/header"), {
-//   ssr: false
-// })
-function About() {
+
+
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { NextPageWithLayouts } from '../models';
+import { Post } from './posts';
+
+const About: NextPageWithLayouts = () => {
   const router = useRouter();
-  const [posts, setPosts] = useState<IPost[]>();
+  const [posts, setPosts] = useState<Post[]>();
   const page = router.query?.page;
   useEffect(() => {
     (async function getPosts() {
       const response = await fetch(`https://js-post-api.herokuapp.com/api/posts?_page=${page}`);
       const data = await response.json();
 
-      setPosts(d => data.data);
+      setPosts(() => data.data);
     })();
   }, [page])
   const handleChangePageClick = () => {
@@ -29,7 +29,7 @@ function About() {
     }, undefined, { shallow: true })
   }
   return (
-    <React.Fragment>
+    <>
       <h1 className='bg-gray-500'>About page</h1>
       <HeaderComponent />
       <ul className='list-decimal list-inside'>
@@ -44,11 +44,11 @@ function About() {
         <button name='previous' className='bg-yellow-50' onClick={handleChangePageClick}>Next Page</button>
       </div>
 
-    </React.Fragment>
+    </>
 
   )
 }
-
+About.Layout = AdminLayout;
 export default About
 export async function getStaticProps() {
   console.log('get static props');
@@ -64,3 +64,4 @@ export async function getStaticProps() {
 //     props: {}
 //   }
 // }
+

@@ -1,12 +1,11 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
-import { NoSubstitutionTemplateLiteral } from 'typescript'
 
 export interface PostListPageProps {
-    posts: IPost[]
+    posts: Post[]
 }
-export interface IPost {
+export interface Post {
     id: string,
     title: string,
     author: string,
@@ -39,7 +38,7 @@ export const getStaticProps: GetStaticProps<PostListPageProps> = async (context:
     const data = await response.json();
     return {
         props: {
-            posts: data.data as IPost[]
+            posts: data.data as Post[]
         }
     }
 }

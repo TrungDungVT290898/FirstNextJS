@@ -1,17 +1,23 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
-import { IPost } from '.'
+
 import Image from 'next/image'
-export interface IDetailPageProps {
-    post: IPost
+import { useRouter } from 'next/router'
+import { Post } from '.'
+export interface DetailPageProps {
+    post: Post
 }
 
-const DetailPost = ({ post }: IDetailPageProps) => {
+const DetailPost = ({ post }: DetailPageProps) => {
+    const router = useRouter();
+    if (router.isFallback) {
+        return <div>Loading</div>
+    }
     return (
         <div>
             {post.id}-----{post.title}
             <div>
-                <img width="300" height="300" src={post.imageUrl!} alt="background" />
+                <Image width="300" height="300" src={post.imageUrl!} alt="background" />
 
             </div>
         </div>
@@ -25,25 +31,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const { data } = await response.json();
     console.log('all data:', data)
     return {
-        paths: data.map((post: IPost) => ({
+        paths: data.map((post: Post) => ({
             params: {
                 postId: post.id
             }
         })),
-        fallback: false
+        fallback: true
     }
 }
-export const getStaticProps: GetStaticProps<IDetailPageProps> = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<DetailPageProps> = async (context: GetStaticPropsContext) => {
     console.log('\nGet static props', context.params?.postId);
     const id = context.params?.postId as string;
     if (!id) return { notFound: true }
     const response = await fetch(`https://js-post-api.herokuapp.com/api/posts/${id}`);
     const data = await response.json();
-    console.log('id:', id)
-    console.log('data:', data)
     return {
         props: {
-            post: data as IPost
-        }
+            post: data as Post
+        },
+        revalidate: 5
     }
 }
