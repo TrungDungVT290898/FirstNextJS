@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPropsContext } from 'next'
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
@@ -32,7 +32,7 @@ const PostListPage = ({ posts }: PostListPageProps) => {
 }
 
 export default PostListPage
-export const getStaticProps: GetStaticProps<PostListPageProps> = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<PostListPageProps> = async () => {
 
     const response = await fetch('https://js-post-api.herokuapp.com/api/posts?_page=1');
     const data = await response.json();
